@@ -1,9 +1,9 @@
 
 const express = require('express');
-const request = require('request');
+// const request = require('request');
 const cors = require("cors")
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
@@ -20,6 +20,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
+app.use(express.static("public"))
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -27,7 +28,6 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    console.log(123)
     res.json('123')
 });
 
