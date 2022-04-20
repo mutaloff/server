@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-const whitelist = ["https://plazma-company.firebaseapp.com/"]
+const whitelist = ["https://plazma-company.firebaseapp.com"]
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {
