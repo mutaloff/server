@@ -7,6 +7,7 @@ const cors = require("cors")
 const PORT = process.env.PORT || 8888;
 
 const app = express();
+const useSocket = require("socket.io");
 
 const whitelist = ["https://plazma-company.web.app", "https://plazma-company.netlify.app", "https://plazma.web.app", "http://localhost:3000"]
 const corsOptions = {
@@ -40,4 +41,10 @@ app.get('/', (req, res) => {
     )
 });
 
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+let server = app.listen(PORT, () => console.log(`listening on ${PORT}`));
+
+const io = useSocket(server)
+
+io.on('connection', (socket) => {
+    socket.on('change', () => socket.broadcast.emit('update'))
+});
